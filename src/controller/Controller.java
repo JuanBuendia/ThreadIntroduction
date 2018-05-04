@@ -1,7 +1,6 @@
 package controller;
 
 import model.Manager;
-
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import view.MainWindowJFrame;
@@ -10,7 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Controller implements KeyListener{
+public class Controller implements KeyListener, ActionListener{
 
 	private int gameTime;
 	private Timer generalTimer;
@@ -21,24 +20,13 @@ public class Controller implements KeyListener{
 		gameTime = 0;
 		mainWindow = new MainWindowJFrame(this);
 		gameManager = new Manager(650, 350);
-		start();
 	}
-
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		switch(Event.valueOf(e.getActionCommand())) {
-//		case START:
-//			start();
-//			break;
-//		default:
-//			break;
-//		}
-//	}
 	
 	private void start() {
 		gameTime = 0;
 		gameManager.start();
 		gameManager.initNewGame();
+		mainWindow.setPanelFocus();
 		generalTimer = new Timer(1000, new ActionListener() {
 			
 			@Override
@@ -52,68 +40,47 @@ public class Controller implements KeyListener{
 		generalTimer.start();
 	}
 	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch(Event.valueOf(e.getActionCommand())) {
+		case START:
+			start();
+			break;
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+			moveTo(e);
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+			moveTo(e);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+			moveTo(e);
+	}
+
+	private void moveTo(KeyEvent e) {
+		if (KeyEvent.VK_UP == e.getKeyCode()) {
+			gameManager.moveUp();
+		}else if(KeyEvent.VK_DOWN == e.getKeyCode()){
+			gameManager.moveDown();
+		}else if(KeyEvent.VK_RIGHT == e.getKeyCode()){
+			gameManager.moveRight();
+		}else if(KeyEvent.VK_LEFT == e.getKeyCode()){
+			gameManager.moveLeft();
+		}
+	}
+	
 	private void checkForDead() {
 		if(gameManager.isDead()) {
 			generalTimer.stop();
 			JOptionPane.showInputDialog("OK");
 			System.out.println(gameTime);
 		}
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		System.out.println(gameTime);
-			if (KeyEvent.VK_UP == e.getKeyCode()) {
-				moveUp();
-			}else if(KeyEvent.VK_DOWN == e.getKeyCode()){
-				moveDown();
-			}else if(KeyEvent.VK_RIGHT == e.getKeyCode()){
-				moveRight();
-			}else if(KeyEvent.VK_LEFT == e.getKeyCode()){
-				moveLeft();
-			}
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		System.out.println(gameTime);
-			if (KeyEvent.VK_UP == e.getKeyCode()) {
-				moveUp();
-			}else if(KeyEvent.VK_DOWN == e.getKeyCode()){
-				moveDown();
-			}else if(KeyEvent.VK_RIGHT == e.getKeyCode()){
-				moveRight();
-			}else if(KeyEvent.VK_LEFT == e.getKeyCode()){
-				moveLeft();
-			}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-			if (KeyEvent.VK_UP == e.getKeyCode()) {
-				moveUp();
-			}else if(KeyEvent.VK_DOWN == e.getKeyCode()){
-				moveDown();
-			}else if(KeyEvent.VK_RIGHT == e.getKeyCode()){
-				moveRight();
-			}else if(KeyEvent.VK_LEFT == e.getKeyCode()){
-				moveLeft();
-			}
-	}
-	
-	private void moveLeft() {
-		gameManager.moveLeft();
-	}
-
-	private void moveRight() {
-		gameManager.moveRight();
-	}
-
-	private void moveDown() {
-		gameManager.moveDown();
-	}
-
-	private void moveUp() {
-		gameManager.moveUp();
 	}
 }

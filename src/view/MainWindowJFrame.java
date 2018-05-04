@@ -1,10 +1,10 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
 import controller.Controller;
 import controller.Event;
 import model.Hero;
@@ -24,19 +24,22 @@ public class MainWindowJFrame extends JFrame{
 		
 		canvas = new Canvas(controller);
 		canvas.addKeyListener(controller);
-		canvas.setFocusable(true);
 		add(canvas, BorderLayout.CENTER);
 		
-//		JButton btnStart = new JButton("Start");
-//		btnStart.addActionListener(controller);
-//		btnStart.setActionCommand(Event.START.toString());
-//		add(btnStart, BorderLayout.PAGE_END);
+		JButton btnStart = new JButton("Start");
+		btnStart.addActionListener(controller);
+		btnStart.setActionCommand(Event.START.toString());
+		add(btnStart, BorderLayout.PAGE_END);
 		
 		setVisible(true);
 	}
 	
-	public void refreshObjects(Hero student, Hero prosecutor) {
-		canvas.refreshObjects(student, prosecutor);
+	public void setPanelFocus() {
+		canvas.requestFocus();
+	}
+	
+	public void refreshObjects(Hero student, ArrayList<Hero> enemies) {
+		canvas.refreshObjects(student, enemies);
 	}
 	
 	public int getW() {

@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public class Manager implements Runnable{
 
@@ -9,36 +10,41 @@ public class Manager implements Runnable{
 	private int halfHeight;
 	private Hero heroPlayer;
 	private Thread myNPCThread;
-	private Hero systemProsecutor;
+	private ArrayList<Hero> enemyList;
 	
 	public Manager(int halfWidth, int halfHeight) {
 		this.halfWidth = halfWidth;
 		this.halfHeight = halfHeight;
+		enemyList = new ArrayList<>();
 		myNPCThread = new Thread(this);
 	}
 	
 	public void moveOponnets() {
-		if(heroPlayer.getPosX() > systemProsecutor.getPosX()) {
-			systemProsecutor.moveRight();
-		}else {
-			systemProsecutor.moveLeft();
-		}
-		if(heroPlayer.getPosY() > systemProsecutor.getPosY()) {
-			systemProsecutor.moveDown();
-		}else {
-			systemProsecutor.moveUp();
+		for (Hero hero : enemyList) {
+			if(heroPlayer.getPosX() > hero.getPosX()) {
+				hero.moveRight();
+			}else {
+				hero.moveLeft();
+			}
+			if(heroPlayer.getPosY() > hero.getPosY()) {
+				hero.moveDown();
+			}else {
+				hero.moveUp();
+			}
 		}
 	}
 	
 	public void checkForDead() {
 		Rectangle recPlayer = new Rectangle(heroPlayer.getPosX(), heroPlayer.getPosY(), 64, 64);
-		Rectangle recEnemy = new Rectangle(systemProsecutor.getPosX(), systemProsecutor.getPosY(), 64, 64);
-		if (recPlayer.intersects(recEnemy)) {
-			stop = true;
-			heroPlayer.die();
-		}
-		if(checkX() && checkY()) {
-			heroPlayer.die();
+		for (Hero hero : enemyList) {
+			Rectangle recEnemy = new Rectangle(hero.getPosX(), hero.getPosY(), 64, 64);
+			if (recPlayer.intersects(recEnemy)) {
+				stop = true;
+				heroPlayer.die();
+			}
+			if(checkX() && checkY()) {
+				heroPlayer.die();
+			}
 		}
 	}
 	
@@ -59,15 +65,19 @@ public class Manager implements Runnable{
 	}
 	
 	private boolean checkX() {
-		if(systemProsecutor.getPosX() <= (heroPlayer.getPosX() + 32) && systemProsecutor.getPosX() >= (heroPlayer.getPosX() - 32)) {
-			return true;
+		for (Hero hero : enemyList) {
+			if(hero.getPosX() <= (heroPlayer.getPosX() + 32) && hero.getPosX() >= (heroPlayer.getPosX() - 32)) {
+				return true;
+			}
 		}
 		return false;
 	}
 	
 	private boolean checkY() {
-		if(systemProsecutor.getPosY() <= (heroPlayer.getPosY() + 32) && systemProsecutor.getPosY() >= (heroPlayer.getPosY() - 32)) {
-			return true;
+		for (Hero hero : enemyList) {
+			if(hero.getPosY() <= (heroPlayer.getPosY() + 32) && hero.getPosY() >= (heroPlayer.getPosY() - 32)) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -77,16 +87,20 @@ public class Manager implements Runnable{
 	}
 	
 	public void initNewGame() {
-		systemProsecutor = new Hero(200, 200);
+		for (int i = 0; i < 20; i++) {
+			System.out.println(i);
+			Hero enemy = new Hero(((int) Math.random() * 100), i * 10 );
+			enemyList.add(enemy);
+		}
 		heroPlayer = new Hero(halfWidth, halfHeight);
 	}
 
 	public Hero getStudent() {
-		return heroPlayer;
+		return heroPlayer; 
 	}
 	
-	public Hero getProsecutor() {
-		return systemProsecutor;
+	public ArrayList<Hero> getProsecutor() {
+		return enemyList;
 	}
 	
 	public void start() {
