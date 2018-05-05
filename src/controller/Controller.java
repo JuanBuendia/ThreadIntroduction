@@ -1,9 +1,9 @@
 package controller;
 
 import model.Manager;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import view.MainWindowJFrame;
+import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
@@ -73,6 +73,8 @@ public class Controller implements KeyListener, ActionListener{
 			gameManager.moveRight();
 		}else if(KeyEvent.VK_LEFT == e.getKeyCode()){
 			gameManager.moveLeft();
+		}else if(KeyEvent.VK_F == e.getKeyCode()) {
+			
 		}
 	}
 	

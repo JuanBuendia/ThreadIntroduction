@@ -3,11 +3,10 @@ package view;
 import model.Hero;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import java.awt.event.KeyListener;
 
 public class Canvas extends JPanel{
 
