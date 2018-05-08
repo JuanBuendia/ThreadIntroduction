@@ -13,7 +13,7 @@ public class Canvas extends JPanel{
 	private Hero student;
 	private ArrayList<Hero> enemies;
 	private static final long serialVersionUID = 1L;
-	private static final Color BACKGROUND = Color.decode("#A5D6A7");
+	private static final Color BACKGROUND = Color.decode("#50634D");
 	private ImageIcon LOAN = new ImageIcon(getClass().getResource("/img/spycrab.gif"));
 	private ImageIcon STUDENT = new ImageIcon(getClass().getResource("/img/screaming-eagle.gif"));
 

@@ -7,6 +7,7 @@ public class Hero {
 	private boolean dead;
 	
 	public Hero(int posX, int posY) {
+		dead = false;
 		this.posX = posX;
 		this.posY = posY;
 	}

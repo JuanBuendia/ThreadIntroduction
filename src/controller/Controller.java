@@ -6,6 +6,8 @@ import view.MainWindowJFrame;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,8 +20,8 @@ public class Controller implements KeyListener, ActionListener{
 	
 	public Controller() {
 		gameTime = 0;
-		mainWindow = new MainWindowJFrame(this);
 		gameManager = new Manager(650, 350);
+		mainWindow = new MainWindowJFrame(this);
 	}
 	
 	private void start() {
