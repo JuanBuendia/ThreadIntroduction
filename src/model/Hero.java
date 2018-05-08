@@ -12,40 +12,28 @@ public class Hero {
 		this.posY = posY;
 	}
 	
-	public void checkBorderX() {
-		if(posX > 1360) {
-			posX -= 25;
-		}else if(posX < 0) {
+	public void moveRight() {
+		if(posX < 1280) {
 			posX += 25;
 		}
 	}
 	
-	public void checkBorderY() {
-		if(posY > 720) {
-			posY -= 25;
-		}else if(posY < 0) {
-			posY += 25;
+	public void moveLeft() {
+		if(posX > 650) {
+			posX -= 25;
 		}
 	}
 	
-	public void moveRight() {
-		checkBorderX();
-		this.posX += 15;
-	}
-	
-	public void moveLeft() {
-		checkBorderX();
-		this.posX -= 15;
-	}
-	
 	public void moveUp() {
-		checkBorderY();
-		this.posY -= 15;
+		if(posY > 10) {
+			this.posY -= 15;
+		}
 	}
 	
 	public void moveDown() {
-		checkBorderY();
-		this.posY += 15;
+		if(posY < 620) {
+			this.posY += 15;
+		}
 	}
 	
 	public void die() {

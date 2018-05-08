@@ -18,7 +18,7 @@ public class Controller implements KeyListener, ActionListener{
 	
 	public Controller() {
 		gameTime = 0;
-		gameManager = new Manager(650, 350);
+		gameManager = new Manager(950, 350);
 		mainWindow = new MainWindowJFrame(this);
 	}
 	
